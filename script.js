@@ -1,11 +1,13 @@
 let total = 0;
 let discountPrice = 0;
 
-if (total == 0) {
+if (total < 200) {
   const purchaseButton = document.getElementById("make-purchase");
   purchaseButton.disabled = true;
-}
 
+  const applyButton = document.getElementById("apply-btn");
+  applyButton.disabled = true;
+}
 
 function handleClick(target) {
   const productTitle = target.childNodes[3].innerText;
@@ -21,12 +23,17 @@ function handleClick(target) {
   total = parseInt(total) + parseInt(productPrice);
   totalContainer.innerText = total + " TK";
 
+  if (total >= 200) {
+    const purchaseButton = document.getElementById("make-purchase");
+    purchaseButton.removeAttribute("disabled");
+
+    const applyButton = document.getElementById("apply-btn");
+    applyButton.removeAttribute("disabled");
+  }
+
   const grandTotal = parseInt(total) - parseInt(discountPrice);
   const grandContainer = document.getElementById("grand-total");
   grandContainer.innerText = grandTotal + " TK";
-
-  const purchaseButton = document.getElementById("make-purchase");
-  purchaseButton.removeAttribute('disabled');
 }
 
 function applyCoupon() {
@@ -59,5 +66,11 @@ function goHome() {
   discountContainer.innerText = "00";
 
   const selectedItems = document.getElementById("selectedItems");
-  selectedItems.innerHTML = '';
+  selectedItems.innerHTML = "";
+  
+  const purchaseButton = document.getElementById("make-purchase");
+  purchaseButton.disabled = true;
+
+  const applyButton = document.getElementById("apply-btn");
+  applyButton.disabled = true;
 }
